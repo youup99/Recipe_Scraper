@@ -1,5 +1,0 @@
-{"name": "Kong Jaban", "review_count": "9", "rating": "3", "make_it_again": "89%", "url": "https://www.epicurious.com/recipes/food/views/korean-stewed-sweet-black-beans-kong-jaban"}
-{"name": "Dakgangjeong", "review_count": "1", "rating": "4", "make_it_again": "100%", "url": "https://www.epicurious.com/recipes/food/views/dakgangjeong-korean-sweet-crunchy-fried-chicken-maangchi"}
-{"name": "Korean Egg Bread", "review_count": "7", "rating": "3.43", "make_it_again": "86%", "url": "https://www.epicurious.com/recipes/food/views/korean-egg-bread-gyeran-bbang"}
-{"name": "Dashi", "review_count": "0", "rating": "0", "make_it_again": "0%", "url": "https://www.epicurious.com/recipes/food/views/my-korea-dashi-hooni-kim"}
-{"name": "Spicy Pork Belly Sliders", "review_count": "3", "rating": "3", "make_it_again": "33%", "url": "https://www.epicurious.com/recipes/food/views/spicy-pork-belly-sliders-jeyuk-bokkeum-hooni-kim"}
