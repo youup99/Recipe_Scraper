@@ -39,6 +39,7 @@ def getRecipes(name, totalRecipes, driver):
     while recipe_count < totalRecipes:
         # name, reviews, make it again, url
         recipe = {
+            'id': recipe_count,
             'name': results[recipe_count].find_element_by_css_selector(
                 'a.view-complete-item').get_attribute('title'),
             'review_count': results[recipe_count].find_element_by_css_selector(
