@@ -55,23 +55,17 @@ def getFilteredRecipes(name, totalRecipes, include, exclude):
     search_url = 'https://www.epicurious.com/search/{name}?content=recipe'
 
     # include
-    if len(include) == 1:
-        search_url += '&include=' + include[0]
-    else:
-        for i in range(len(include)):
-            if i == 0:
-                search_url += '&include=' + include[0]
-            else:
-                search_url += '%2C' + include[i]
+    for i in range(len(include)):
+        if i == 0:
+            search_url += '&include=' + include[0]
+        else:
+            search_url += '%2C' + include[i]
     # exclude
-    if len(exclude) == 1:
-        search_url += '&exclude=' + exclude[0]
-    else:
-        for i in range(len(exclude)):
-            if i == 0:
-                search_url += '&exclude=' + exclude[0]
-            else:
-                search_url += '%2C' + exclude[i]
+    for i in range(len(exclude)):
+        if i == 0:
+            search_url += '&exclude=' + exclude[0]
+        else:
+            search_url += '%2C' + exclude[i]
 
     print('URL: ', search_url)
 
