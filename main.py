@@ -3,10 +3,7 @@ import selenium
 from selenium import webdriver
 import time
 from PIL import Image
-import io
-import requests
 from webdriver_manager.chrome import ChromeDriverManager
-import json
 
 os.chdir('D:/Personal Projects/Recipe_Scraper')
 
@@ -21,10 +18,8 @@ def scroll_to_end(driver):
     driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
     time.sleep(5)  # sleep_between_interactions
 
-# no license issues
 
-
-def getRecipes(name, totalRecipes, driver):
+def getRecipes(name, totalRecipes=5):
 
     search_url = 'https://www.epicurious.com/search/{name}?content=recipe'
     driver.get(search_url.format(name=name))
@@ -39,7 +34,7 @@ def getRecipes(name, totalRecipes, driver):
     while recipe_count < totalRecipes:
         # name, reviews, make it again, url
         recipe = {
-            'id': recipe_count,
+            'id': recipe_count + 1,
             'name': results[recipe_count].find_element_by_css_selector(
                 'a.view-complete-item').get_attribute('title'),
             'review_count': results[recipe_count].find_element_by_css_selector(
@@ -55,30 +50,3 @@ def getRecipes(name, totalRecipes, driver):
         recipe_count += 1
 
     return recipes
-
-
-def saveToTextFile(searchNames, destDir, totalRecipes, driver):
-    for name in list(searchNames):
-        path = os.path.join(destDir, name + '.txt', )
-        if os.path.exists(path):
-            os.remove(path)
-
-        recipes = getRecipes(name, totalRecipes, driver)
-
-        # No recipes exist
-        if recipes is None:
-            print('images not found for :', name)
-            continue
-        else:
-            with open(path, 'w') as file:
-                for recipe in recipes:
-                    file.write(json.dumps(recipe))
-                    file.write('\n')
-
-
-searchNames = ['christmas', 'korean']
-destDir = f'./data/'
-totalRecipes = 5
-
-saveToTextFile(searchNames, destDir, totalRecipes, driver)
-print("DONE")
