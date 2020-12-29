@@ -12,6 +12,8 @@ opts = webdriver.ChromeOptions()
 opts.headless = True
 
 driver = webdriver.Chrome(ChromeDriverManager().install(), options=opts)
+driver.get('https://www.epicurious.com/search/?content=recipe')
+print('READY')
 
 
 def scroll_to_end(driver):
@@ -72,7 +74,7 @@ def search(search_url, totalRecipes):
     recipes = []
     recipe_count = 0
 
-    scroll_to_end(driver)
+    # scroll_to_end(driver)
 
     results = driver.find_elements_by_xpath(
         '//article[contains(@class,"recipe-content-card")]')
