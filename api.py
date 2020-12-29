@@ -1,6 +1,6 @@
 import flask
 from flask import request, jsonify
-from main import getRecipesByName, getRecipesByNameFiltered, getRecipesByIngredients
+from main import get_recipes_by_name, get_recipes_by_name_filtered, get_recipes_by_ingredients
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -16,7 +16,7 @@ def search_by_name():
     req_data = request.get_json()
     search_name = req_data['name']
     num = req_data['num']
-    recipes = getRecipesByName(search_name, num)
+    recipes = get_recipes_by_name(search_name, num)
     return jsonify(recipes)
 
 
@@ -27,7 +27,7 @@ def search_by_name_with_filter():
     num = req_data['num']
     include = req_data['include']
     exclude = req_data['exclude']
-    recipes = getRecipesByNameFiltered(search_name, num, include, exclude)
+    recipes = get_recipes_by_name_filtered(search_name, num, include, exclude)
     return jsonify(recipes)
 
 
@@ -37,7 +37,7 @@ def search_by_ingredients():
     num = req_data['num']
     include = req_data['include']
     exclude = req_data['exclude']
-    recipes = getRecipesByIngredients(num, include, exclude)
+    recipes = get_recipes_by_ingredients(num, include, exclude)
     return jsonify(recipes)
 
 

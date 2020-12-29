@@ -19,40 +19,16 @@ def scroll_to_end(driver):
     time.sleep(5)  # sleep_between_interactions
 
 
-def getRecipesByName(name, totalRecipes):
+def get_recipes_by_name(name, totalRecipes):
     search_url = 'https://www.epicurious.com/search/{name}?content=recipe'
-    driver.get(search_url.format(name=name))
-    recipes = []
-    recipe_count = 0
+    search_url = search_url.format(name=name)
 
-    scroll_to_end(driver)
-
-    results = driver.find_elements_by_xpath(
-        '//article[contains(@class,"recipe-content-card")]')
-
-    while recipe_count < totalRecipes:
-        # name, reviews, make it again, url
-        recipe = {
-            'id': recipe_count + 1,
-            'name': results[recipe_count].find_element_by_css_selector(
-                'a.view-complete-item').get_attribute('title'),
-            'review_count': results[recipe_count].find_element_by_css_selector(
-                'dl.recipes-ratings-summary').get_attribute('data-reviews-count'),
-            'rating': results[recipe_count].find_element_by_css_selector(
-                'dl.recipes-ratings-summary').get_attribute('data-reviews-rating'),
-            'make_it_again': results[recipe_count].find_element_by_css_selector(
-                'dd.make-again-percentage').text,
-            'url': results[recipe_count].find_element_by_css_selector(
-                'a.view-complete-item').get_attribute('href')
-        }
-        recipes.append(recipe)
-        recipe_count += 1
-
-    return recipes
+    return search(search_url, totalRecipes)
 
 
-def getRecipesByNameFiltered(name, totalRecipes, include, exclude):
+def get_recipes_by_name_filtered(name, totalRecipes, include, exclude):
     search_url = 'https://www.epicurious.com/search/{name}?content=recipe'
+    search_url = search_url.format(name=name)
 
     # include
     for i in range(len(include)):
@@ -67,39 +43,10 @@ def getRecipesByNameFiltered(name, totalRecipes, include, exclude):
         else:
             search_url += '%2C' + exclude[i]
 
-    print('URL: ', search_url)
-
-    driver.get(search_url.format(name=name))
-    recipes = []
-    recipe_count = 0
-
-    scroll_to_end(driver)
-
-    results = driver.find_elements_by_xpath(
-        '//article[contains(@class,"recipe-content-card")]')
-
-    while recipe_count < totalRecipes:
-        # name, reviews, make it again, url
-        recipe = {
-            'id': recipe_count + 1,
-            'name': results[recipe_count].find_element_by_css_selector(
-                'a.view-complete-item').get_attribute('title'),
-            'review_count': results[recipe_count].find_element_by_css_selector(
-                'dl.recipes-ratings-summary').get_attribute('data-reviews-count'),
-            'rating': results[recipe_count].find_element_by_css_selector(
-                'dl.recipes-ratings-summary').get_attribute('data-reviews-rating'),
-            'make_it_again': results[recipe_count].find_element_by_css_selector(
-                'dd.make-again-percentage').text,
-            'url': results[recipe_count].find_element_by_css_selector(
-                'a.view-complete-item').get_attribute('href')
-        }
-        recipes.append(recipe)
-        recipe_count += 1
-
-    return recipes
+    return search(search_url, totalRecipes)
 
 
-def getRecipesByIngredients(totalRecipes, include, exclude):
+def get_recipes_by_ingredients(totalRecipes, include, exclude):
     search_url = 'https://www.epicurious.com/search/?content=recipe'
 
     # include
@@ -115,8 +62,12 @@ def getRecipesByIngredients(totalRecipes, include, exclude):
         else:
             search_url += '%2C' + exclude[i]
 
-    print('URL: ', search_url)
+    return search(search_url, totalRecipes)
 
+
+# Generic search function
+def search(search_url, totalRecipes):
+    print('URL: ', search_url)
     driver.get(search_url)
     recipes = []
     recipe_count = 0
